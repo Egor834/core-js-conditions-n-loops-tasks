@@ -279,8 +279,15 @@ function getIndexOf(str, letter) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let i = 0;
+  const str = `${num}`;
+  for (; i < str.length; i += 1) {
+    if (str[i] === `${digit}`) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -296,8 +303,21 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  if (arr.length < 3) return -1;
+  let totalSum = 0;
+  let leftSum = 0;
+  for (let i = 0; i < arr.length; i += 1) {
+    totalSum += arr[i];
+  }
+  for (let i = 0; i < arr.length - 1; i += 1) {
+    leftSum += arr[i];
+    const rightSum = totalSum - leftSum - arr[i + 1];
+    if (leftSum === rightSum) {
+      return i + 1;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -321,8 +341,46 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const matrix = [];
+  for (let i = 0; i < size; i += 1) {
+    matrix[i] = [];
+    for (let j = 0; j < size; j += 1) {
+      matrix[i][j] = 0;
+    }
+  }
+  let number = 1;
+  let top = 0;
+  let bottom = size - 1;
+  let left = 0;
+  let right = size - 1;
+  while (top <= bottom && left <= right) {
+    for (let i = left; i <= right; i += 1) {
+      matrix[top][i] = number;
+      number += 1;
+    }
+    top += 1;
+    for (let i = top; i <= bottom; i += 1) {
+      matrix[i][right] = number;
+      number += 1;
+    }
+    right -= 1;
+    if (top <= bottom) {
+      for (let i = right; i >= left; i -= 1) {
+        matrix[bottom][i] = number;
+        number += 1;
+      }
+      bottom -= 1;
+    }
+    if (left <= right) {
+      for (let i = bottom; i >= top; i -= 1) {
+        matrix[i][left] = number;
+        number += 1;
+      }
+      left += 1;
+    }
+  }
+  return matrix;
 }
 
 /**
@@ -340,8 +398,24 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const matrix2 = matrix;
+  const size = matrix.length;
+  for (let i = 0; i < size; i += 1) {
+    for (let j = i + 1; j < size; j += 1) {
+      const number = matrix[i][j];
+      matrix2[i][j] = matrix[j][i];
+      matrix2[j][i] = number;
+    }
+  }
+  for (let i = 0; i < size; i += 1) {
+    for (let j = 0; j < Math.floor(size / 2); j += 1) {
+      const number = matrix2[i][j];
+      matrix2[i][j] = matrix2[i][size - 1 - j];
+      matrix2[i][size - 1 - j] = number;
+    }
+  }
+  return matrix2;
 }
 
 /**
@@ -358,8 +432,22 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const arr2 = [];
+  const size = arr.length;
+  for (let j = 0; j < size; j += 1) {
+    arr2[j] = arr[j];
+  }
+  for (let i = 0; i < size - 1; i += 1) {
+    for (let j = 0; j < size - i - 1; j += 1) {
+      if (arr2[j] > arr2[j + 1]) {
+        const temp = arr2[j];
+        arr2[j] = arr2[j + 1];
+        arr2[j + 1] = temp;
+      }
+    }
+  }
+  return arr2;
 }
 
 /**
@@ -379,8 +467,22 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let str2 = str;
+  const size = str.length;
+  for (let iter = 0; iter < iterations; iter += 1) {
+    let evenChars = '';
+    let oddChars = '';
+    for (let i = 0; i < size; i += 1) {
+      if (i % 2 === 0) {
+        evenChars += str2[i];
+      } else {
+        oddChars += str2[i];
+      }
+    }
+    str2 = evenChars + oddChars;
+  }
+  return str2;
 }
 
 /**
