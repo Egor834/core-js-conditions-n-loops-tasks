@@ -171,44 +171,46 @@ function convertNumberToString(numberStr) {
     if (strNumber.length > 0) {
       strNumber += ' ';
     }
-    if (numberStr[i] === ',') {
-      strNumber += 'point';
-    }
-    if (numberStr[i] === '.') {
-      strNumber += 'point';
-    }
-    if (numberStr[i] === '-') {
-      strNumber += 'minus';
-    }
-    if (numberStr[i] === '0') {
-      strNumber += 'zero';
-    }
-    if (numberStr[i] === '1') {
-      strNumber += 'one';
-    }
-    if (numberStr[i] === '2') {
-      strNumber += 'two';
-    }
-    if (numberStr[i] === '3') {
-      strNumber += 'three';
-    }
-    if (numberStr[i] === '4') {
-      strNumber += 'four';
-    }
-    if (numberStr[i] === '5') {
-      strNumber += 'five';
-    }
-    if (numberStr[i] === '6') {
-      strNumber += 'six';
-    }
-    if (numberStr[i] === '7') {
-      strNumber += 'seven';
-    }
-    if (numberStr[i] === '8') {
-      strNumber += 'eight';
-    }
-    if (numberStr[i] === '9') {
-      strNumber += 'nine';
+    switch (numberStr[i]) {
+      case '-':
+        strNumber += 'minus';
+        break;
+      case '.':
+      case ',':
+        strNumber += 'point';
+        break;
+      case '0':
+        strNumber += 'zero';
+        break;
+      case '1':
+        strNumber += 'one';
+        break;
+      case '2':
+        strNumber += 'two';
+        break;
+      case '3':
+        strNumber += 'three';
+        break;
+      case '4':
+        strNumber += 'four';
+        break;
+      case '5':
+        strNumber += 'five';
+        break;
+      case '6':
+        strNumber += 'six';
+        break;
+      case '7':
+        strNumber += 'seven';
+        break;
+      case '8':
+        strNumber += 'eight';
+        break;
+      case '9':
+        strNumber += 'nine';
+        break;
+      default:
+        strNumber += '';
     }
   }
   return strNumber;
@@ -226,8 +228,16 @@ function convertNumberToString(numberStr) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let str2 = '';
+  let i = str.length - 1;
+  for (; i >= 0; i -= 1) {
+    str2 += str[i];
+  }
+  if (str2 === str) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -244,8 +254,14 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  let i = 0;
+  for (; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
